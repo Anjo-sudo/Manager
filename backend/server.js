@@ -18,9 +18,14 @@ app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
-// Root
-app.get('/', (req, res) => {
-    res.send('API is running...');
+const path = require('path');
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// Catch-all route to serve the React index.html for client-side routing
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
