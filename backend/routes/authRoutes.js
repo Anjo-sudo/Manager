@@ -6,7 +6,7 @@ const prisma = require('../prismaClient');
 
 // Generate JWT
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET || 'my_super_secret_jwt_key_123', {
     expiresIn: '30d',
   });
 };
